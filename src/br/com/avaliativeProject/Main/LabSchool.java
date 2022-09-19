@@ -24,7 +24,7 @@ public class LabSchool {
         Professor professor2 = new Professor("Guido", "(00)000000000", "00/00/0000", "321456789-01", "Mestrado", "Full-Stack", true);
         Pedagogo pedagoga = new Pedagogo("Patricia", "(00)000000000", "00/00/0000", "543214545-01");
         pedagoga.setTotalAtdPedagogicos();
-
+        pedagoga.setTotalAtdPedagogicos();
 
 //      Variáveis(name class) para condicionamento do retorno de pessoas cadastradas, conforme a escolha do usuário
         String alunoClass = "br.com.avaliativeProject.Models.Aluno";
@@ -32,20 +32,30 @@ public class LabSchool {
         String pedagogoClass = "br.com.avaliativeProject.Models.Pedagogo";
 
 //      Interação com o usuário
-
         int menuLevel = 0;
-        while(menuLevel != 6){
+        while(menuLevel != 7){
             if(menuLevel == 0){
                 System.out.println(
-                        "1. Listar todas as pessoas cadastradas\n" +
-                                "2. Relatorio dos Alunos.\n" +
-                                "3. Relatorio dos professores.\n" +
-                                "4. Aluno com mais atendimentos pedagogicos\n" +
-                                "5. Pedagogo com mais atendimentos pedagogicos\n" +
-                                "6. Sair");
+                        "1. Realizar atendimento pedagogico\n" +
+                                "2. Listar todas as pessoas cadastradas\n" +
+                                "3. Relatorio dos Alunos.\n" +
+                                "4. Relatorio dos Professores.\n" +
+                                "5. Aluno com mais atendimentos pedagogicos\n" +
+                                "6. Pedagogo com mais atendimentos pedagogicos\n" +
+                                "7. Sair");
                 menuLevel = out.nextInt();
             }
-            else if (menuLevel == 1) {
+            else if (menuLevel == 1){
+                getStudents("Todos");
+                System.out.println("\nDigite o codigo do estudante que participara do atendimento pedagogico:");
+                int studentId = out.nextInt();
+                getPedagogics();
+                System.out.println("\nDigite o codigo do pedagogo(a) que participara do atendimento pedagogico:");
+                int pedagogicId = out.nextInt();
+                attendPedagogic(studentId, pedagogicId);
+                menuLevel = 0;
+            }
+            else if (menuLevel == 2) {
                 System.out.println(
                         "\n\n\nListar todas as pessoas cadastradas. O usuario devera informar quais categorias de " +
                                 "pessoas deseja listar (deve-se listar Codigo, Nome e CPF):\n" +
@@ -88,7 +98,7 @@ public class LabSchool {
                     }
                 }
             }
-            else if (menuLevel == 2) {
+            else if (menuLevel == 3) {
                 System.out.println(
                         "\n\n\n1. Ativo\n" +
                         "2. Irregular\n" +
@@ -128,7 +138,7 @@ public class LabSchool {
                     menuLevel = 0;
                 }
             }
-            else if (menuLevel == 3) {
+            else if (menuLevel == 4) {
                 System.out.println(
                         "\n\n\n1. Front-End\n" +
                                 "2. Back-End\n" +
@@ -163,7 +173,7 @@ public class LabSchool {
                     menuLevel = 0;
                 }
             }
-            else if(menuLevel == 4){
+            else if(menuLevel == 5){
                 getHigherAttended();
                 System.out.println("\n1. Sair");
                 int schoose = out.nextInt();
@@ -171,7 +181,7 @@ public class LabSchool {
                     menuLevel = 0;
                 }
             }
-            else if(menuLevel == 5){
+            else if(menuLevel == 6){
                 getHigherAttendedPedagogo();
                 System.out.println("\n1. Sair");
                 int schoose = out.nextInt();
@@ -179,6 +189,7 @@ public class LabSchool {
                     menuLevel = 0;
                 }
             }
+
         }
     }
 }

@@ -2,13 +2,15 @@ package br.com.avaliativeProject.Models;
 
 public class Aluno extends Pessoa{
     private String condicao;
+
     private double nota;
+
     private int totalAtdPedagogicos = 0;
 
     public Aluno(String nome, String telefone, String dtNascimento, String CPF, String condicao, double nota) {
         super(nome, telefone, dtNascimento, CPF);
-        this.nota = nota;
         this.condicao = condicao;
+        this.nota = nota;
         setInstances(this);
     }
 
@@ -35,7 +37,6 @@ public class Aluno extends Pessoa{
     public void setTotalAtdPedagogicos() {
         this.totalAtdPedagogicos++;
     }
-
 
     @Override
     public String toString() {

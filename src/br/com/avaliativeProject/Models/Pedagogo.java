@@ -15,4 +15,10 @@ public class Pedagogo extends Pessoa{
     public void setTotalAtdPedagogicos() {
         this.totalAtdPedagogicos++;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "totalAtdPedagogicos=" + totalAtdPedagogicos;
+    }
 }

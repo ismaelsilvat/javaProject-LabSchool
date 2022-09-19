@@ -3,10 +3,46 @@ package br.com.avaliativeProject.Models;
 import java.util.*;
 
 public abstract class Pessoa {
+    private String nome;
+
+    private String telefone;
+
+    private String dtNascimento;
+
+    private String CPF;
+
+    private int id;
 
     public static List<Object> instances = new ArrayList();
 
-    public static String getInstances(String condicao) {
+    public Pessoa(String nome, String telefone, String dtNascimento, String CPF) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.dtNascimento = dtNascimento;
+        this.CPF = CPF;
+        this.id = instances.size() + 1;
+    }
+
+    public static void attendPedagogic(int studentId, int pedagogicId){
+        for (Object e:
+             instances) {
+            if(e.getClass().getName().contains("Aluno")){
+                Aluno aluno = ((Aluno)e);
+                if(aluno.getId() == studentId){
+                    aluno.setTotalAtdPedagogicos();
+                }
+            }
+            else if((e.getClass().getName().contains("Pedagogo"))){
+                Pedagogo pedagogo = ((Pedagogo)e);
+                if(pedagogo.getId() == pedagogicId){
+                    pedagogo.setTotalAtdPedagogicos();
+                }
+            }
+        }
+        System.out.println("\nAtendimento realizado com sucesso!\n");
+    }
+
+    public static void getInstances(String condicao) {
         int i;
         if(condicao == "todos"){
             for (i = 0; i < instances.size(); i++) {
@@ -36,21 +72,24 @@ public abstract class Pessoa {
         }
         else{
             for (i = 0; i < instances.size(); i++) {
-                if (instances.get(i).getClass().getName() == condicao && condicao == "br.com.avaliativeProject.Models.Aluno") {
+                if (instances.get(i).getClass().getName() == condicao &&
+                        condicao == "br.com.avaliativeProject.Models.Aluno") {
                     Aluno aluno = ((Aluno) instances.get(i));
                     System.out.println("Aluno:\n" +
                             "Codigo: " + aluno.getId() +
                             " Nome: " + aluno.getNome() +
                             " CPF: " + aluno.getCPF() +
                             "\n");
-                } else if (instances.get(i).getClass().getName() == condicao && condicao == "br.com.avaliativeProject.Models.Professor") {
+                } else if (instances.get(i).getClass().getName() == condicao &&
+                        condicao == "br.com.avaliativeProject.Models.Professor") {
                     Professor professor = ((Professor) instances.get(i));
                     System.out.println("Professor:\n" +
                             "Codigo: " + professor.getId() +
                             " Nome: " + professor.getNome() +
                             " CPF: " + professor.getCPF() +
                             "\n");
-                } else if (instances.get(i).getClass().getName() == condicao && condicao == "br.com.avaliativeProject.Models.Pedagogo") {
+                } else if (instances.get(i).getClass().getName() == condicao &&
+                        condicao == "br.com.avaliativeProject.Models.Pedagogo") {
                     Pedagogo pedagogo = ((Pedagogo) instances.get(i));
                     System.out.println("Pedagogo:\n" +
                             "Codigo: " + pedagogo.getId() +
@@ -60,8 +99,6 @@ public abstract class Pessoa {
                 }
             }
         }
-
-        return "";
     }
 
     public static void getStudents(String condicao){
@@ -112,6 +149,19 @@ public abstract class Pessoa {
         }
     }
 
+    public static void getPedagogics(){
+        int i;
+        for (i = 0; i < instances.size(); i++) {
+            if (instances.get(i).getClass().getName() == "br.com.avaliativeProject.Models.Pedagogo") {
+                Pedagogo pedagogo = ((Pedagogo) instances.get(i));
+                System.out.println(
+                        "\nCodigo: " + pedagogo.getId() +
+                                "\nNome: " + pedagogo.getNome() +
+                                "\nAtendimentos pedagogicos: " + pedagogo.getTotalAtdPedagogicos());
+                }
+            }
+        }
+
     public static void getHigherAttended(){
         int i;
         int maior = 0;
@@ -157,25 +207,6 @@ public abstract class Pessoa {
         }
     }
 
-
-    private String nome;
-    private String telefone;
-    private String dtNascimento;
-    private String CPF;
-    private int id;
-
-    public Pessoa(String nome, String telefone, String dtNascimento, String CPF) {
-        this.nome = nome;
-        this.telefone = telefone;
-        this.dtNascimento = dtNascimento;
-        this.CPF = CPF;
-        this.id = instances.size() + 1;
-    }
-
-    public static void setInstances(Object e) {
-        instances.add(e);
-    }
-
     public String getNome() {
         return nome;
     }
@@ -216,12 +247,20 @@ public abstract class Pessoa {
         this.id = id;
     }
 
+    public static List<Object> getInstances() {
+        return instances;
+    }
+
+    public static void setInstances(Object e) {
+        instances.add(e);
+    }
+
     @Override
     public String toString() {
-        return  "nome='" + nome + '\'' +
+        return "nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +
                 ", dtNascimento='" + dtNascimento + '\'' +
-                ", CPF=" + CPF +
+                ", CPF='" + CPF + '\'' +
                 ", id=" + id +
                 '}';
     }
