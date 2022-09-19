@@ -4,7 +4,7 @@
 *.ear
 
 *.iml
-*.idea
+.idea
 
 **/target/
 /target/
